@@ -42,8 +42,9 @@ describe "Merchants" do
     it "can find a list of invoices from a specific merchant" do
         merchant_id = create(:merchant).id
         merchant_2_id = create(:merchant).id
+        customer_id = create(:customer).id
 
-        invoices = create_list(:invoice, 2, merchant_id: merchant_id)
+        invoices = create_list(:invoice, 2, merchant_id: merchant_id, customer_id: customer_id)
 
         get "/api/v1/merchants/#{merchant_id}/invoices"
 
