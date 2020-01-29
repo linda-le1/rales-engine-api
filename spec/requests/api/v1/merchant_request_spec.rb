@@ -22,5 +22,9 @@ describe "Merchants" do
 
         expect(response).to be_successful
         expect(merchant["id"]).to eq(id)
-      end
+    end
+
+    it "can find a list of items from a specific merchant" do
+        merchant = create(:merchant)
+    end
 end
