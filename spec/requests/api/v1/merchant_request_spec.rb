@@ -26,5 +26,18 @@ describe "Merchants" do
 
     it "can find a list of items from a specific merchant" do
         merchant = create(:merchant)
+        merchant_2 = create(:merchant)
+
+        item = create(:item, merchant: merchant)
+
+        get "/api/v1/merchants/#{merchant.id}/items"
+
+        items = JSON.parse(response.body)
+
+        expect(response).to be_successful
+        expect(items.count).to be eql(1)
+        expect(items[merchant_id]).to_not be eql(merchant_2.id)
+
+
     end
 end
