@@ -25,18 +25,18 @@ describe "Merchants" do
     end
 
     it "can find a list of items from a specific merchant" do
-        merchant = create(:merchant)
-        merchant_2 = create(:merchant)
+        merchant_id = create(:merchant).id
+        merchant_2 = create(:merchant).id
 
-        item = create(:item, merchant: merchant)
+        items = create_list(:item, 5, merchant_id: merchant_id)
 
-        get "/api/v1/merchants/#{merchant.id}/items"
+        get "/api/v1/merchants/#{merchant_id}/items"
 
         items = JSON.parse(response.body)
 
         expect(response).to be_successful
-        expect(items.count).to be eql(1)
-        expect(items[merchant_id]).to_not be eql(merchant_2.id)
+        expect(items.count).to eql(5)
+        expect(items.last[merchant_id]).to_not be eql(merchant_2)
 
 
     end
