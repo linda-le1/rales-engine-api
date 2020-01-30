@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 
       resources :merchants do
         get '/items', to: 'merchant_items#index'
-        resources :invoices, only: [:index]
+        get '/invoices', to: 'merchant_invoices#index'
       end
 
       resources :items, only: [:index, :show]
+      resources :invoices, only: [:index, :show]
     end
   end
 end

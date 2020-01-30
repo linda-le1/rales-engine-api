@@ -1,13 +1,11 @@
 class Api::V1::InvoicesController < ApplicationController
-    before_action :set_merchant
 
     def index
-        render json: InvoiceSerializer.new(@merchant.invoices)
+        render json: InvoiceSerializer.new(Invoice.all)
     end
 
-    private
-
-    def set_merchant
-        @merchant = Merchant.find(params[:merchant_id])
+    def show
+        render json: InvoiceSerializer.new(Invoice.find(params[:id]))
     end
+
 end
