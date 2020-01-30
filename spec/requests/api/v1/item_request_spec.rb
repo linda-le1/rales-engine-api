@@ -1,17 +1,21 @@
 require 'rails_helper'
 
-describe Item do
+describe 'Items' do
     it 'sends a list of all items' do
 
-        create_list(:item, 5)
+        merchant = create(:merchant)
+        merchant_2 = create(:merchant)
 
-        get '/api/v1/merchants'
+        create_list(:item, 5, merchant_id: merchant.id)
+        create_list(:item, 10, merchant_id: merchant_2.id)
+
+        get '/api/v1/items'
 
         expect(response).to be_successful
 
-        merchants = JSON.parse(response.body)["data"]
+        items = JSON.parse(response.body)["data"]
 
-        expect(merchants.count).to eql(5)
+        expect(items.count).to eql(15)
 
     end
 end
