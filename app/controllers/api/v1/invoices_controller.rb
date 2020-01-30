@@ -2,7 +2,7 @@ class Api::V1::InvoicesController < ApplicationController
     before_action :set_merchant
 
     def index
-        render json: @merchant.invoices
+        render json: InvoiceSerializer.new(@merchant.invoices)
     end
 
     private
