@@ -33,18 +33,18 @@ describe 'Transactions' do
         invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
         invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id)
 
-        transaction = create(:transaction, invoice_id: invoice.id)
+        transaction_1 = create(:transaction, credit_card_number: '1111', invoice_id: invoice.id)
         transaction_2 = create(:transaction, invoice_id: invoice_2.id)
 
-        get "/api/v1/transactions/#{transaction.id}"
+        get "/api/v1/transactions/#{transaction_1.id}"
 
 
-        invoices = JSON.parse(response.body)['data']
+        transaction = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(invoices['attributes']['merchant_id']).to eql(merchant.id)
-        expect(invoices['attributes']['customer_id']).to eql(customer.id)
-        expect(invoices['attributes']['invoice_id']).to eql(invoice.id)
+        expect(transaction['attributes']['invoice_id']).to eql(invoice.id)
+        expect(transaction['attributes']['credit_card_number']).to eql('1111')
+        expect(transaction['attributes']['credit_card_number']).not_to eql(transaction_2.credit_card_number)
     end
 end
