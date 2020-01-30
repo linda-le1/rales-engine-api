@@ -8,9 +8,10 @@ describe "Merchants" do
 
         expect(response).to be_successful
 
-        merchants = JSON.parse(response.body)
+        merchants = JSON.parse(response.body)["data"]
 
         expect(merchants.count).to eql(5)
+
     end
 
     it "can get one merchant by its id" do
@@ -18,10 +19,10 @@ describe "Merchants" do
 
         get "/api/v1/merchants/#{id}"
 
-        merchant = JSON.parse(response.body)
+        merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
-        expect(merchant["id"]).to eq(id)
+        expect(merchant['attributes']['id']).to eq(id)
     end
 
     it "can find a list of items from a specific merchant" do
@@ -32,11 +33,12 @@ describe "Merchants" do
 
         get "/api/v1/merchants/#{merchant_id}/items"
 
-        items = JSON.parse(response.body)
+        items = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
+
         expect(items.count).to eql(5)
-        expect(items.last[merchant_id]).to_not be eql(merchant_2_id)
+        expect(items.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
 
     it "can find a list of invoices from a specific merchant" do
@@ -48,10 +50,10 @@ describe "Merchants" do
 
         get "/api/v1/merchants/#{merchant_id}/invoices"
 
-        invoices = JSON.parse(response.body)
+        invoices = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
         expect(invoices.count).to eql(2)
-        expect(invoices.last[merchant_id]).to_not be eql(merchant_2_id)
+        expect(invoices.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
 end
