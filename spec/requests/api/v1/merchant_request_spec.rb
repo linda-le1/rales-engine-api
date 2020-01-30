@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe "Merchants" do
-    it "sends a list of merchants" do
+describe 'Merchants' do
+    it 'sends a list of merchants' do
         create_list(:merchant, 5)
 
         get '/api/v1/merchants'
@@ -14,7 +14,7 @@ describe "Merchants" do
 
     end
 
-    it "can get one merchant by its id" do
+    it 'can get one merchant by its id' do
         id = create(:merchant).id
 
         get "/api/v1/merchants/#{id}"
@@ -25,7 +25,7 @@ describe "Merchants" do
         expect(merchant['attributes']['id']).to eq(id)
     end
 
-    it "can find a list of items from a specific merchant" do
+    it 'can find a list of items from a specific merchant' do
         merchant_id = create(:merchant).id
         merchant_2_id = create(:merchant).id
 
@@ -41,7 +41,7 @@ describe "Merchants" do
         expect(items.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
 
-    it "can find a list of invoices from a specific merchant" do
+    it 'can find a list of invoices from a specific merchant' do
         merchant_id = create(:merchant).id
         merchant_2_id = create(:merchant).id
         customer_id = create(:customer).id
