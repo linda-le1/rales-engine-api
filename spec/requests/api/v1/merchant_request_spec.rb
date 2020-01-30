@@ -50,10 +50,10 @@ describe "Merchants" do
 
         get "/api/v1/merchants/#{merchant_id}/invoices"
 
-        invoices = JSON.parse(response.body)
+        invoices = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
         expect(invoices.count).to eql(2)
-        expect(invoices.last[merchant_id]).to_not be eql(merchant_2_id)
+        expect(invoices.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
 end
