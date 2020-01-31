@@ -56,4 +56,58 @@ describe 'Merchants' do
         expect(invoices.count).to eql(2)
         expect(invoices.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
+
+    it 'can find a merchant by their name' do
+
+        merchant = create(:merchant, name: 'Baby Yoda Boba')
+
+        get "/api/v1/merchants/find?name=#{merchant.name}"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(merchant[0]['attributes']['name']).to eql('Baby Yoda Boba')
+    end
+
+    it 'can find a merchant by their id' do
+
+        merchant = create(:merchant, id: 888)
+
+        get "/api/v1/merchants/find?id=#{merchant.id}"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(merchant[0]['attributes']['id']).to eql(888)
+    end
+
+    it 'can find a merchant by date created at' do
+
+        merchant_1 = create(:merchant, created_at: "2009-01-31 01:30:08 UTC")
+        merchant_2 = create(:merchant, created_at: "1998-04-22 01:30:08 UTC")
+
+        get "/api/v1/merchants/find?created_at=#{merchant_1.created_at}"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(merchant[0]['attributes']['id']).to eql(merchant_1.id)
+    end
+
+    it 'can find a merchant by date updated at' do
+
+        merchant_1 = create(:merchant, updated_at: "2009-01-31 01:30:08 UTC")
+        merchant_2 = create(:merchant, updated_at: "1998-04-22 01:30:08 UTC")
+
+        get "/api/v1/merchants/find?updated_at=#{merchant_1.updated_at}"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(merchant[0]['attributes']['id']).to eql(merchant_1.id)
+    end
 end
