@@ -56,4 +56,16 @@ describe 'Merchants' do
         expect(invoices.count).to eql(2)
         expect(invoices.last['attributes']['merchant_id']).to_not be eql(merchant_2_id)
     end
+
+    it 'can find a merchant by their name' do
+
+        merchant = create(:merchant, name: 'Baby Yoda Boba')
+
+        get "/api/v1/merchants/find?name=#{merchant.name}"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+        expect(merchant['attributes']['name']).to eql('Baby Yoda Boba')
+    end
 end
