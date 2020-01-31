@@ -30,7 +30,7 @@ describe 'Merchants' do
         merchant_2_id = create(:merchant).id
 
         items = create_list(:item, 5, merchant_id: merchant_id)
-
+  
         get "/api/v1/merchants/#{merchant_id}/items"
 
         items = JSON.parse(response.body)['data']

@@ -1,4 +1,4 @@
-class Api::V1::MerchantItemsController < ApplicationController
+class Api::V1::Merchants::MerchantItemsController < ApplicationController
 
     before_action :set_merchant
 
@@ -9,6 +9,6 @@ class Api::V1::MerchantItemsController < ApplicationController
     private
 
     def set_merchant
-        @merchant = Merchant.find(params[:merchant_id])
+        @merchant = Merchant.find(params[:id])
     end
 end

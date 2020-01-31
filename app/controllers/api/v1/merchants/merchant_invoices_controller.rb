@@ -1,4 +1,4 @@
-class Api::V1::MerchantInvoicesController < ApplicationController
+class Api::V1::Merchants::MerchantInvoicesController < ApplicationController
     before_action :set_merchant
 
     def index
@@ -8,6 +8,6 @@ class Api::V1::MerchantInvoicesController < ApplicationController
     private
 
     def set_merchant
-        @merchant = Merchant.find(params[:merchant_id])
+        @merchant = Merchant.find(params[:id])
     end
 end
