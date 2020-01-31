@@ -85,14 +85,15 @@ describe 'Merchants' do
 
     it 'can find a merchant by date created at' do
 
-        merchant = create(:merchant)
+        merchant = create(:merchant, created_at: "2009-01-31 01:30:08 UTC")
+        merchant = create(:merchant, created_at: "1998-04-22 01:30:08 UTC")
 
         get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
 
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
-        binding.pry
+
         expect(merchant[0]['attributes']['created_at']).to eql('merchant.created_at')
     end
 
