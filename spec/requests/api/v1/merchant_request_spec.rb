@@ -66,6 +66,7 @@ describe 'Merchants' do
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
-        expect(merchant['attributes']['name']).to eql('Baby Yoda Boba')
+
+        expect(merchant[0]['attributes']['name']).to eql('Baby Yoda Boba')
     end
 end
