@@ -85,28 +85,29 @@ describe 'Merchants' do
 
     it 'can find a merchant by date created at' do
 
-        merchant = create(:merchant, created_at: "2009-01-31 01:30:08 UTC")
-        merchant = create(:merchant, created_at: "1998-04-22 01:30:08 UTC")
+        merchant_1 = create(:merchant, created_at: "2009-01-31 01:30:08 UTC")
+        merchant_2 = create(:merchant, created_at: "1998-04-22 01:30:08 UTC")
 
-        get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
+        get "/api/v1/merchants/find?created_at=#{merchant_1.created_at}"
 
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(merchant[0]['attributes']['created_at']).to eql('merchant.created_at')
+        expect(merchant[0]['attributes']['id']).to eql(merchant_1.id)
     end
 
     it 'can find a merchant by date updated at' do
 
-        merchant = create(:merchant, name: 'Baby Yoda Boba')
+        merchant_1 = create(:merchant, updated_at: "2009-01-31 01:30:08 UTC")
+        merchant_2 = create(:merchant, updated_at: "1998-04-22 01:30:08 UTC")
 
-        get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
+        get "/api/v1/merchants/find?updated_at=#{merchant_1.updated_at}"
 
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(merchant[0]['attributes']['updated_at']).to eql(merchant.updated_at)
+        expect(merchant[0]['attributes']['id']).to eql(merchant_1.id)
     end
 end
