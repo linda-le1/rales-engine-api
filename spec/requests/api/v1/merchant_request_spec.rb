@@ -66,7 +66,7 @@ describe 'Merchants' do
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
-        binding.pry
+
         expect(merchant[0]['attributes']['name']).to eql('Baby Yoda Boba')
     end
 
@@ -80,32 +80,32 @@ describe 'Merchants' do
 
         expect(response).to be_successful
 
-        expect(merchant[0]['attributes']['id']).to eql('Baby Yoda Boba')
+        expect(merchant[0]['attributes']['id']).to eql(888)
     end
 
     it 'can find a merchant by date created at' do
 
-        merchant = create(:merchant, name: 'Baby Yoda Boba')
+        merchant = create(:merchant)
 
-        get "/api/v1/merchants/find?name=#{merchant.name}"
+        get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
 
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
-
-        expect(merchant[0]['attributes']['name']).to eql('Baby Yoda Boba')
+        binding.pry
+        expect(merchant[0]['attributes']['created_at']).to eql('merchant.created_at')
     end
 
     it 'can find a merchant by date updated at' do
 
         merchant = create(:merchant, name: 'Baby Yoda Boba')
 
-        get "/api/v1/merchants/find?name=#{merchant.name}"
+        get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
 
         merchant = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(merchant[0]['attributes']['name']).to eql('Baby Yoda Boba')
+        expect(merchant[0]['attributes']['updated_at']).to eql(merchant.updated_at)
     end
 end
