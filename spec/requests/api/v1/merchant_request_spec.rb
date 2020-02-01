@@ -110,4 +110,20 @@ describe 'Merchants' do
 
         expect(merchant[0]['attributes']['id']).to eql(merchant_1.id)
     end
+
+    it 'can find all merchants by name' do
+
+        merchant_1 = create(:merchant, name: "Mojo Jojo")
+        merchant_2 = create(:merchant, name: "Mojo Jojo")
+
+        expect(merchant_1.id).not_to eql(merchant_2.id)
+
+        get "/api/v1/merchants/find_all?name=Mojo-Jojo"
+
+        merchants = JSON.parse(response.body)['data']
+        
+        expect(response).to be_successful
+
+        expect(merchants.count).to eql(2)
+    end
 end
