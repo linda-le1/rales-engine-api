@@ -181,4 +181,20 @@ describe 'Merchants' do
         expect(merchants.count).to eql(1)
         expect(merchants[0]['attributes']['id']).to eql(merchant_1.id)
     end
+
+    it 'can find merchants at random' do
+        merchants = create_list(:merchant, 5)
+
+        ids = merchants.map do |merchant|
+                merchant.id
+            end
+
+        get '/api/v1/merchants/random'
+
+        random_merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(ids).to include(random_merchant['attributes']['id'])
+
 end
