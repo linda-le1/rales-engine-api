@@ -196,5 +196,5 @@ describe 'Merchants' do
         expect(response).to be_successful
 
         expect(ids).to include(random_merchant['attributes']['id'])
-
+    end
 end
