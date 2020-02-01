@@ -191,10 +191,13 @@ describe 'Merchants' do
 
         get '/api/v1/merchants/random'
 
-        random_merchant = JSON.parse(response.body)['data']
+        random_merchant = JSON.parse(response.body)
 
         expect(response).to be_successful
 
-        expect(ids).to include(random_merchant['attributes']['id'])
+        expect(random_merchant.count).to eql(1)
+
+        expect(ids).to include(random_merchant['data']['attributes']['id'])
+
     end
 end
