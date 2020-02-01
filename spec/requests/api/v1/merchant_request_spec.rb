@@ -120,10 +120,11 @@ describe 'Merchants' do
 
         get "/api/v1/merchants/find_all?name=Mojo+Jojo"
 
-        merchants = JSON.parse(response.body)
+        merchants = JSON.parse(response.body)['data']
+
         expect(response).to be_successful
 
         expect(merchants.count).to eql(2)
-        expect(merchant_1.id).not_to eql(merchant_2.id)
+        expect(merchants[0]['attributes']['id']).not_to eql(merchants[1]['attributes']['id'])
     end
 end
