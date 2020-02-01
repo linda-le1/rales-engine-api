@@ -118,12 +118,13 @@ describe 'Merchants' do
 
         expect(merchant_1.id).not_to eql(merchant_2.id)
 
-        get "/api/v1/merchants/find_all?name=Mojo-Jojo"
+        get "/api/v1/merchants/find_all?name=Mojo+Jojo"
 
-        merchants = JSON.parse(response.body)['data']
-        
+        merchants = JSON.parse(response.body)
+        binding.pry
         expect(response).to be_successful
 
         expect(merchants.count).to eql(2)
+        expect(merchant_1.id).not_to eql(merchant_2.id)
     end
 end
