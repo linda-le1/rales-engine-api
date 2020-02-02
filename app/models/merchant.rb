@@ -15,7 +15,7 @@ class Merchant < ApplicationRecord
 
     def self.calculate_revenue_by_date(date)
         select("merchant.name, invoice.created_at as date, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
-        .joins([:invoice [:invoice_items, :transactions]])
+        .joins([:invoices [:invoice_items, :transactions]])
         .group(merchant.name, "date")
         .where(transaction {result:"success"})
         .order('revenue desc')
@@ -23,7 +23,6 @@ class Merchant < ApplicationRecord
     end
 
     def parse_date(date)
-        binding.pry
         start = Time.zone.parse(date)
         over = start + 1.days
         {created_at: start..over}
