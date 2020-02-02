@@ -127,6 +127,7 @@ describe 'Invoices' do
 
         expect(invoice['attributes']['id']).to eql(invoice_1.id)
     end
+
     it 'can find an invoice by updated at ' do
         merchant = create(:merchant)
 
@@ -164,5 +165,131 @@ describe 'Invoices' do
         expect(random_invoice.count).to eql(1)
 
         expect(ids).to include(random_invoice['data']['attributes']['id'])
+    end
+
+    it 'can find all invoices by id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        get "/api/v1/invoices/find_all?id=#{invoice_1.id}"
+
+        invoice = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice.count).to eql(1)
+
+        expect(invoice[0]['attributes']['id']).to eql(invoice_1.id)
+    end
+
+    it 'can find all invoices by customer id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        get "/api/v1/invoices/find_all?customer_id=#{customer_id}"
+
+        invoices = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(3)
+
+        expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
+        expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
+        expect(invoices[2]['attributes']['id']).to eql(invoice_3.id)
+    end
+
+    it 'can find all invoices by merchant id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        get "/api/v1/invoices/find_all?merchant_id=#{merchant_id}"
+
+        invoice = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(3)
+
+        expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
+        expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
+        expect(invoices[2]['attributes']['id']).to eql(invoice_3.id)
+    end
+
+    it 'can find all invoices by a status' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, status: 'shipped')
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, status: 'shipped')
+        invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, status: 'cancelled')
+
+        get "/api/v1/invoices/find_all?status=shipped"
+
+        invoices = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(2)
+
+        expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
+        expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
+    end
+
+    it 'can find all invoice by created at date' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
+        invoice_2 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
+        invoice_2 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2009-04-22 01:30:08 UTC")
+
+        get "/api/v1/invoices/find_all?created_at=2019-04-22 01:30:08 UTC"
+
+        invoices = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(2)
+
+        expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
+        expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
+    end
+
+    it 'can find all invoices by updated at date' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, updated_at: "2019-04-22 01:30:08 UTC")
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, updated_at: "2019-04-22 01:30:08 UTC")
+        invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, updated_at: "2018-04-22 01:30:08 UTC")
+
+        get "/api/v1/invoices/find_all?updated_at=2019-04-22 01:30:08 UTC"
+
+        invoices = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(2)
+
+        expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
+        expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
     end
 end
