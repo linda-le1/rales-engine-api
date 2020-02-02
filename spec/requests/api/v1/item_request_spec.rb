@@ -206,13 +206,13 @@ describe 'Items' do
         expect(items[2]['attributes']['id']).to eql(item_3.id)
     end
 
-    it 'can find an item by its name' do
+    it 'can find all item by a name' do
         merchant = create(:merchant)
 
         item_1 = create(:item, merchant_id: merchant.id, name: "Master Pokeball")
         item_2 = create(:item, merchant_id: merchant.id, name: "Crayons")
 
-        get "/api/v1/items/find?name=#{item_1.name}"
+        get "/api/v1/items/find_all?name=#{item_1.name}"
 
         expect(response).to be_successful
 
@@ -225,7 +225,7 @@ describe 'Items' do
 
     end
 
-    it 'can find an item by its description' do
+    it 'can find all item by a description' do
         merchant = create(:merchant)
 
         item_1 = create(:item, merchant_id: merchant.id, description: "The very best!")
@@ -242,13 +242,13 @@ describe 'Items' do
         expect(items[1]['attributes']['id']).to eql(item_2.id)
     end
 
-    it 'can get an item by its date created' do
+    it 'can get all item by a date created' do
         merchant = create(:merchant)
 
         item_1 = create(:item, merchant_id: merchant.id, created_at: "2003-04-22 01:30:08 UTC")
         item_2 = create(:item, merchant_id: merchant.id, created_at: "2003-04-22 01:30:08 UTC")
 
-        get "/api/v1/items/find?created_at=#{item_1.created_at}"
+        get "/api/v1/items/find_all?created_at=#{item_1.created_at}"
 
         expect(response).to be_successful
 
@@ -259,13 +259,13 @@ describe 'Items' do
         expect(items[1]['attributes']['id']).to eql(item_2.id)
     end
 
-    it 'can get an item by its date updated' do
+    it 'can get all item by a date updated' do
         merchant = create(:merchant)
 
         item_1 = create(:item, merchant_id: merchant.id, updated_at: "2019-01-31 01:30:08 UTC")
         item_2 = create(:item, merchant_id: merchant.id, updated_at: "2019-01-31 01:30:08 UTC")
 
-        get "/api/v1/items/find?updated_at=#{item_1.updated_at}"
+        get "/api/v1/items/find_all?updated_at=#{item_1.updated_at}"
 
         expect(response).to be_successful
 
@@ -282,7 +282,7 @@ describe 'Items' do
         item_1 = create(:item, merchant_id: merchant.id, unit_price: 2567)
         item_2 = create(:item, merchant_id: merchant.id, unit_price: 2567)
 
-        get "/api/v1/items/find?unit_price=#{item_1.unit_price}"
+        get "/api/v1/items/find_all?unit_price=#{item_1.unit_price}"
 
         expect(response).to be_successful
 
