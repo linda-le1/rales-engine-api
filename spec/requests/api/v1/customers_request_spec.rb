@@ -26,4 +26,73 @@ describe 'Customers' do
         expect(customer['attributes']['id']).to eq(id)
         expect(customer['attributes']['id']).not_to eq(id_2)
     end
+
+    it 'can find a customer by their first name' do
+
+        customer = create(:customer, first_name: 'Ash', last_name: 'Ketchum')
+
+        get "/api/v1/customers/find?first_name=Ash"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['first_name']).to eql('Ash')
+        expect(customer['attributes']['last_name']).to eql('Ketchum')
+    end
+
+    it 'can find a customer by their last name' do
+
+        customer = create(:customer, first_name: 'Ash', last_name: 'Ketchum')
+
+        get "/api/v1/customers/find?last_name=Ketchum"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['first_name']).to eql('Ash')
+        expect(customer['attributes']['last_name']).to eql('Ketchum')
+    end
+
+    it 'can find a customer by their id' do
+
+        customer = create(:customer, id: 888)
+
+        get "/api/v1/customers/find?id=#{customer.id}"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['id']).to eql(888)
+    end
+
+    it 'can find a customer by date created at' do
+
+        customer_1 = create(:customer, created_at: "2009-01-31 01:30:08 UTC")
+        customer_2 = create(:customer, created_at: "1998-04-22 01:30:08 UTC")
+
+        get "/api/v1/customers/find?created_at=#{customer_1.created_at}"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['id']).to eql(customer_1.id)
+    end
+
+    it 'can find a customer by date updated at' do
+
+        customer_1 = create(:customer, updated_at: "2009-01-31 01:30:08 UTC")
+        customer_2 = create(:customer, updated_at: "1998-04-22 01:30:08 UTC")
+
+        get "/api/v1/customers/find?updated_at=#{customer_1.updated_at}"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['id']).to eql(customer_1.id)
+    end
 end
