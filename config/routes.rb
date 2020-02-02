@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#index'
         get '/find_all', to: 'find#show'
         get '/random', to: 'random#index'
+        get '/most_revenue', to: 'revenue#index'
       end
 
       resources :merchants, only: [:index, :show]
