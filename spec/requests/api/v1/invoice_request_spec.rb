@@ -165,5 +165,4 @@ describe 'Invoices' do
 
         expect(ids).to include(random_invoice['data']['attributes']['id'])
     end
-
 end

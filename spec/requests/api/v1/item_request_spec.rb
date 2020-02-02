@@ -148,4 +148,24 @@ describe 'Items' do
         expect(item['attributes']['unit_price']).to eql("25.67")
         expect(item['attributes']['id']).to eql(item_1.id)
     end
+
+    it 'can find items at random' do
+        merchant = create(:merchant)
+
+        items = create_list(:item, 5, merchant_id: merchant.id)
+
+        ids = items.map do |item|
+                item.id
+            end
+
+        get '/api/v1/items/random'
+
+        random_item = JSON.parse(response.body)
+
+        expect(response).to be_successful
+
+        expect(random_item.count).to eql(1)
+
+        expect(ids).to include(random_item['data']['attributes']['id'])
+    end
 end
