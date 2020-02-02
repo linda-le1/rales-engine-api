@@ -200,4 +200,9 @@ describe 'Merchants' do
         expect(ids).to include(random_merchant['data']['attributes']['id'])
 
     end
+
+    it 'can find the top x merchants ranked by total revenue' do
+        
+
+    end
 end
