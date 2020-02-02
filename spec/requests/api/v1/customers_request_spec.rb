@@ -95,4 +95,22 @@ describe 'Customers' do
 
         expect(customer['attributes']['id']).to eql(customer_1.id)
     end
+
+    it 'can find customers at random' do
+        customers = create_list(:customer, 5)
+
+        ids = customers.map do |customer|
+                customer.id
+            end
+
+        get '/api/v1/customers/random'
+
+        random_customer = JSON.parse(response.body)
+
+        expect(response).to be_successful
+
+        expect(random_customer.count).to eql(1)
+
+        expect(ids).to include(random_customer['data']['attributes']['id'])
+    end
 end

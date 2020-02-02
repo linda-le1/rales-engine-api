@@ -144,4 +144,25 @@ describe 'Invoices' do
         expect(invoice['attributes']['id']).to eql(invoice_1.id)
     end
 
+    it 'can find invoices at random' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoices = create_list(:invoice, 5, merchant_id: merchant.id, customer_id: customer.id)
+
+        ids = invoices.map do |invoice|
+                invoice.id
+            end
+
+        get '/api/v1/invoices/random'
+
+        random_invoice = JSON.parse(response.body)
+
+        expect(response).to be_successful
+
+        expect(random_invoice.count).to eql(1)
+
+        expect(ids).to include(random_invoice['data']['attributes']['id'])
+    end
 end
