@@ -258,7 +258,7 @@ describe 'Merchants' do
 
         item_1 = create(:item, unit_price: 2150, merchant_id: merchant_1.id)
         item_2 = create(:item, unit_price: 1250, merchant_id: merchant_2.id)
-        item_3 = create(:item, unit_price: 4550, merchant_id: merchant_3.id)
+        item_3 = create(:item, unit_price: 4551, merchant_id: merchant_3.id)
 
         invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
         invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
@@ -280,14 +280,10 @@ describe 'Merchants' do
 
         get '/api/v1/merchants/revenue?date=2020-01-31'
 
-        top_merchants = JSON.parse(response.body)['data']
+        revenue = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(top_merchants.count). to eql(3)
-        expect(top_merchants[0]["attributes"]["id"]).to eq(merchant_1.id)
-        expect(top_merchants[1]["attributes"]["id"]).to eq(merchant_2.id)
-        expect(top_merchants[2]["attributes"]["id"]).to eq(merchant_3.id)
-
+        expect(revenue['attributes']).to eql ('202.02')
     end
 end
