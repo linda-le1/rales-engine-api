@@ -235,5 +235,14 @@ describe 'Merchants' do
         invoice_item_4 = create(:invoice_item, quantity: 2, invoice_id: invoice_4.id, item_id: item_4.id)
         invoice_item_5 = create(:invoice_item, quantity: 5, invoice_id: invoice_5.id, item_id: item_5.id)
 
+        get '/api/v1/merchants/most_revenue?quantity=3'
+
+        top_merchants = JSON.parse(response.body)['data']
+
+        expect(top_merchants.count). to eql(3)
+        expect(top_merchants["attributes"]["id"]).to eq(merchant_1.id)
+        expect(top_merchants["attributes"]["id"]).to eq(merchant_2.id)
+        expect(top_merchants["attributes"]["id"]).to eq(merchant_3.id)
+
     end
 end
