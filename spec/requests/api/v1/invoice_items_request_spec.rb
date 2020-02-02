@@ -287,7 +287,7 @@ describe 'Invoice Items' do
 
         invoice_items = JSON.parse(response.body)['data']
 
-        expect(invoice_item.count).to eql(2)
+        expect(invoice_items.count).to eql(2)
 
         expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_1.id)
         expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_2.id)
@@ -313,7 +313,7 @@ describe 'Invoice Items' do
 
         expect(response).to be_successful
 
-        expect(invoice_item.count).to eql(2)
+        expect(invoice_items.count).to eql(2)
 
         expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_1.id)
         expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_2.id)
@@ -361,13 +361,15 @@ describe 'Invoice Items' do
 
         get "/api/v1/invoice_items/find_all?unit_price=#{invoice_item_1.unit_price}"
 
-        item_invoices = JSON.parse(response.body)['data']
+        invoice_items = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(item_invoices['attributes']['id']).to eql(invoice_item_1.id)
+        expect(invoice_items.count).to eql(2)
 
-        expect(item_invoices['attributes']['unit_price']).to eql("20.00")
+        expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_1.id)
+
+        expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_2.id)
     end
 
     it 'can find an item invoice by date created at' do
@@ -395,7 +397,7 @@ describe 'Invoice Items' do
         expect(invoice_items.count).to eql (2)
 
         expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_2.id)
-        expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_3.id)
+        expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_3.id)
     end
 
     it 'can find a invoice item by date updated at' do
@@ -423,7 +425,7 @@ describe 'Invoice Items' do
         expect(invoice_items.count).to eql (2)
 
         expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_2.id)
-        expect(invoice_items[0]['attributes']['id']).to eql(invoice_item_3.id)
+        expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_3.id)
     end
 
 end

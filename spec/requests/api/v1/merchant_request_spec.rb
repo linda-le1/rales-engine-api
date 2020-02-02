@@ -126,7 +126,7 @@ describe 'Merchants' do
         expect(response).to be_successful
 
         expect(merchants.count).to eql(2)
-        expect(merchants[0]['attributes']['id']).not_to eql(merchants[1]['attributes']['id'])
+
         expect(merchants[0]['attributes']['id']).to eql(merchant_1.id)
         expect(merchants[1]['attributes']['id']).to eql(merchant_2.id)
     end
