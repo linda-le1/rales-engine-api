@@ -22,10 +22,4 @@ class Merchant < ApplicationRecord
         .where(invoices: {updated_at: (Time.zone.parse(date)..Time.zone.parse(date) + 1.days)})
     end
 
-    def parse_date(date)
-        start = Time.zone.parse(date)
-        over = start + 1.days
-        {updated_at: start..over}
-    end
-
 end
