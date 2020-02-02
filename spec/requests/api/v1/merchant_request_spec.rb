@@ -260,11 +260,11 @@ describe 'Merchants' do
         item_2 = create(:item, unit_price: 1250, merchant_id: merchant_2.id)
         item_3 = create(:item, unit_price: 4551, merchant_id: merchant_3.id)
 
-        invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
-        invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
-        invoice_3 = create(:invoice, merchant_id: merchant_3.id, customer_id: customer_2.id, created_at: "2020-01-31 10:20:30 UTC")
-        invoice_4 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
-        invoice_5 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, created_at: "2020-01-31 10:20:30 UTC")
+        invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_3 = create(:invoice, merchant_id: merchant_3.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_4 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_5 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
 
         transaction_1 = create(:transaction, result: 'success', invoice_id: invoice_1.id)
         transaction_2 = create(:transaction, result: 'success', invoice_id: invoice_2.id)
