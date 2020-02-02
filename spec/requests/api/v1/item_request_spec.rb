@@ -92,13 +92,12 @@ describe 'Items' do
         item_1 = create(:item, merchant_id: merchant.id, description: "The very best!")
         item_2 = create(:item, merchant_id: merchant_2.id, description: "Meh!")
 
-        get "/api/v1/items/find?description=#{item_1.id}"
+        get "/api/v1/items/find?description=#{item_1.description}"
 
         expect(response).to be_successful
 
         item = JSON.parse(response.body)['data']
 
-        expect(item['attributes']['description']).to eql(item_1.description)
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 
@@ -109,7 +108,7 @@ describe 'Items' do
         item_1 = create(:item, merchant_id: merchant.id, created_at: "2003-04-22 01:30:08 UTC")
         item_2 = create(:item, merchant_id: merchant_2.id, created_at: "2019-01-31 01:30:08 UTC")
 
-        get "/api/v1/items/find?updated_at=#{item_1.created_at}"
+        get "/api/v1/items/find?created_at=#{item_1.created_at}"
 
         expect(response).to be_successful
 
@@ -130,7 +129,6 @@ describe 'Items' do
         expect(response).to be_successful
 
         item = JSON.parse(response.body)['data']
-
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 
@@ -138,7 +136,7 @@ describe 'Items' do
         merchant = create(:merchant)
         merchant_2 = create(:merchant)
 
-        item_1 = create(:item, merchant_id: merchant.id, unit_price: 2500)
+        item_1 = create(:item, merchant_id: merchant.id, unit_price: 2567)
         item_2 = create(:item, merchant_id: merchant_2.id, unit_price: 10000)
 
         get "/api/v1/items/find?unit_price=#{item_1.unit_price}"
@@ -147,7 +145,7 @@ describe 'Items' do
 
         item = JSON.parse(response.body)['data']
 
-        expect(item['attributes']['unit_price']).to eql(20.00)
+        expect(item['attributes']['unit_price']).to eql("25.67")
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 end
