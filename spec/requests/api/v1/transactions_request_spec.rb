@@ -68,7 +68,7 @@ describe 'Transactions' do
 
         expect(response).to be_successful
 
-        expect(transaction['attributes']['id']).to eql(invoice.id)
+        expect(transaction['attributes']['id']).to eql(transaction_1.id)
     end
 
     it 'can find a specific transaction by its invoice id' do
@@ -107,7 +107,7 @@ describe 'Transactions' do
         transaction_1 = create(:transaction, credit_card_number: '1111', invoice_id: invoice.id)
         transaction_2 = create(:transaction, invoice_id: invoice_2.id)
 
-        get "/api/v1/transactions/find?credit_card_number=#{transaction_1.id}"
+        get "/api/v1/transactions/find?credit_card_number=#{transaction_1.credit_card_number}"
 
 
         transaction = JSON.parse(response.body)['data']
@@ -127,10 +127,10 @@ describe 'Transactions' do
         invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
         invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id)
 
-        transaction_1 = create(:transaction, credit_card_number: '88881234', invoice_id: invoice.id, status: 'failed')
-        transaction_2 = create(:transaction, invoice_id: invoice_2.id, status: 'success')
+        transaction_1 = create(:transaction, credit_card_number: '88881234', invoice_id: invoice.id, result: 'failed')
+        transaction_2 = create(:transaction, invoice_id: invoice_2.id, result: 'success')
 
-        get "/api/v1/transactions/find?status=#{transaction_2.id}"
+        get "/api/v1/transactions/find?result=#{transaction_2.result}"
 
         transaction = JSON.parse(response.body)['data']
 
@@ -152,7 +152,7 @@ describe 'Transactions' do
         transaction_1 = create(:transaction, credit_card_number: '1111', invoice_id: invoice.id, created_at: "2019-01-31 01:30:08 UTC")
         transaction_2 = create(:transaction, invoice_id: invoice_2.id)
 
-        get "/api/v1/transactions/find?created_at=#{transaction_1.id}"
+        get "/api/v1/transactions/find?created_at=#{transaction_1.created_at}"
 
 
         transaction = JSON.parse(response.body)['data']
@@ -175,7 +175,7 @@ describe 'Transactions' do
         transaction_1 = create(:transaction, credit_card_number: '1111', invoice_id: invoice.id, updated_at: "2019-01-31 01:30:08 UTC")
         transaction_2 = create(:transaction, invoice_id: invoice_2.id)
 
-        get "/api/v1/transactions/find?updated_at=#{transaction_1.id}"
+        get "/api/v1/transactions/find?updated_at=#{transaction_1.updated_at}"
 
 
         transaction = JSON.parse(response.body)['data']
