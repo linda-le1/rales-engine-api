@@ -239,10 +239,12 @@ describe 'Merchants' do
 
         top_merchants = JSON.parse(response.body)['data']
 
+        expect(response).to be_successful
+
         expect(top_merchants.count). to eql(3)
-        expect(top_merchants["attributes"]["id"]).to eq(merchant_1.id)
-        expect(top_merchants["attributes"]["id"]).to eq(merchant_2.id)
-        expect(top_merchants["attributes"]["id"]).to eq(merchant_3.id)
+        expect(top_merchants[0]["attributes"]["id"]).to eq(merchant_1.id)
+        expect(top_merchants[1]["attributes"]["id"]).to eq(merchant_2.id)
+        expect(top_merchants[2]["attributes"]["id"]).to eq(merchant_3.id)
 
     end
 end
