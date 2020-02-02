@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
     has_many :transactions, through: :invoices
     has_many :invoice_items, through: :invoices
 
-    def calculate_most_revenue(quantity)
+    def self.calculate_most_revenue(quantity)
         select("merchants.*, sum(unit_price*quantity) as revenue")
         .joins(invoices: [:invoice_items, :transactions])
         .group(:id)
