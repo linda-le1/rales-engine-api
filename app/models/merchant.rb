@@ -19,7 +19,7 @@ class Merchant < ApplicationRecord
         .group(:name, "date")
         .where(transactions: {result:"success"})
         .order('revenue desc')
-        .where(invoices: {updated_at: Invoice.parse_date(date)})
+        .where(invoices: {updated_at: date})
     end
 
     def parse_date(date)
