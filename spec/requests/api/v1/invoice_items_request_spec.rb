@@ -26,7 +26,32 @@ describe 'Invoice Items' do
         expect(invoice_items.count).to eql(15)
     end
 
-    it 'can get an invoice item by its id' do
+    it 'can get a specific invoice item' do
+        merchant = create(:merchant)
+        merchant_2 = create(:merchant)
+
+        customer = create(:customer)
+        customer_2 = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer_2.id)
+        invoice_2= create(:invoice, merchant_id: merchant_2.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant_2.id)
+
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_2.id)
+
+        get "/api/v1/invoice_items/#{invoice_item_1.id}"
+
+        expect(response).to be_successful
+
+        invoice_item = JSON.parse(response.body)["data"]
+
+        expect(invoice_item['attributes']['id']).to eql(invoice_item_1.id)
+    end
+
+    it 'can get an invoice item by its id through a find method ' do
         merchant = create(:merchant)
         merchant_2 = create(:merchant)
 
