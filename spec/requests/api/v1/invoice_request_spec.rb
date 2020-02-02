@@ -195,7 +195,7 @@ describe 'Invoices' do
         invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
         invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
 
-        get "/api/v1/invoices/find_all?customer_id=#{customer_id}"
+        get "/api/v1/invoices/find_all?customer_id=#{customer.id}"
 
         invoices = JSON.parse(response.body)['data']
 
@@ -217,9 +217,9 @@ describe 'Invoices' do
         invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
         invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
 
-        get "/api/v1/invoices/find_all?merchant_id=#{merchant_id}"
+        get "/api/v1/invoices/find_all?merchant_id=#{merchant.id}"
 
-        invoice = JSON.parse(response.body)['data']
+        invoices = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
@@ -256,9 +256,9 @@ describe 'Invoices' do
 
         customer = create(:customer)
 
-        invoice_1 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
-        invoice_2 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
-        invoice_2 = create_(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2009-04-22 01:30:08 UTC")
+        invoice_1 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2019-04-22 01:30:08 UTC")
+        invoice_3 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, created_at: "2009-04-22 01:30:08 UTC")
 
         get "/api/v1/invoices/find_all?created_at=2019-04-22 01:30:08 UTC"
 
