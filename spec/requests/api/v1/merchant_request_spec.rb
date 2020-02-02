@@ -283,6 +283,7 @@ describe 'Merchants' do
         revenue = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
+        binding.pry
 
         expect(revenue['attributes']).to eql ('202.02')
     end
