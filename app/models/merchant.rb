@@ -14,12 +14,12 @@ class Merchant < ApplicationRecord
     end
 
     def self.calculate_revenue_by_date(date)
-        select("merchants.name, invoices.created_at as date, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
+        select("merchants.name, invoices.updated_at as date, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
         .joins(invoices: [:invoice_items, :transactions])
         .group(:name, "date")
         .where(transactions: {result:"success"})
         .order('revenue desc')
-        .where(invoices: {updated_at: date})
+        .where(invoices: {updated_at: (Time.zone.parse(date)..Time.zone.parse(date) + 1.days)})
     end
 
     def parse_date(date)
