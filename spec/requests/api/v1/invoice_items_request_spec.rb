@@ -117,7 +117,7 @@ describe 'Invoice Items' do
 
         expect(response).to be_successful
 
-        expect(invoice_item['attributes']['id']).to eql(invoice_item_1)
+        expect(invoice_item['attributes']['id']).to eql(invoice_item_1.id)
         expect(invoice_item['attributes']['quantity']).to eql(5)
     end
 
@@ -129,18 +129,19 @@ describe 'Invoice Items' do
 
         invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
 
-        item_1 = create(:item, merchant_id: merchant.id, unit_price: 2)
+        item_1 = create(:item, merchant_id: merchant.id)
 
-        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, unit_price: 2000)
 
-        get "/api/v1/invoice_items/find?unit_price=#{item_1.unit_price}"
+        get "/api/v1/invoice_items/find?unit_price=#{invoice_item_1.unit_price}"
 
         item_invoice = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
         expect(item_invoice['attributes']['id']).to eql(invoice_item_1.id)
-        expect(item_invoice['attributes']['unit_price']).to eql(item_1.unit_price)
+
+        expect(item_invoice['attributes']['unit_price']).to eql("20.00")
     end
 
     it 'can find an item invoice by date created at' do
@@ -155,7 +156,7 @@ describe 'Invoice Items' do
         item_1 = create(:item, merchant_id: merchant.id)
 
         invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, created_at: "2009-01-31 01:30:08 UTC")
-        invoice_item_1 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_1.id, created_at: "2019-04-22 01:30:08 UTC")
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_1.id, created_at: "2019-04-22 01:30:08 UTC")
 
         get "/api/v1/invoice_items/find?created_at=#{invoice_item_1.created_at}"
 
@@ -164,8 +165,6 @@ describe 'Invoice Items' do
         expect(response).to be_successful
 
         expect(invoice_item['attributes']['id']).to eql(invoice_item_1.id)
-        expect(invoice_item['attributes']['created_at']).to eql(invoice_item_1.created_at)
-        expect(invoice_item['attributes']['created_at']).to_not eql(invoice_item_2.created_at)
     end
 
     it 'can find a invoice item by date updated at' do
@@ -175,11 +174,12 @@ describe 'Invoice Items' do
         customer = create(:customer)
 
         invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
 
         item_1 = create(:item, merchant_id: merchant.id)
 
         invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, updated_at: "2009-01-31 01:30:08 UTC")
-        invoice_item_1 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_1.id, updated_at: "2019-04-22 01:30:08 UTC")
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_1.id, updated_at: "2019-04-22 01:30:08 UTC")
 
         get "/api/v1/invoice_items/find?updated_at=#{invoice_item_1.updated_at}"
 
@@ -188,8 +188,6 @@ describe 'Invoice Items' do
         expect(response).to be_successful
 
         expect(invoice_item['attributes']['id']).to eql(invoice_item_1.id)
-        expect(invoice_item['attributes']['updated_at']).to eql(invoice_item_1.updated_at)
-        expect(invoice_item['attributes']['updated_at']).to_not eql(invoice_item_2.updated_at)
     end
 
 end
