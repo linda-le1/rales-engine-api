@@ -27,17 +27,32 @@ describe 'Customers' do
         expect(customer['attributes']['id']).not_to eq(id_2)
     end
 
-    it 'can find a customer by their name' do
+    it 'can find a customer by their first name' do
 
-        customer = create(:customer, name: 'Baby Yoda')
+        customer = create(:customer, first_name: 'Ash', last_name: 'Ketchum')
 
-        get "/api/v1/customers/find?name=#{customer.name}"
+        get "/api/v1/customers/find?first_name=Ash"
 
         customer = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(customer['attributes']['name']).to eql('Baby Yoda')
+        expect(customer['attributes']['first_name']).to eql('Ash')
+        expect(customer['attributes']['last_name']).to eql('Ketchum')
+    end
+
+    it 'can find a customer by their last name' do
+
+        customer = create(:customer, first_name: 'Ash', last_name: 'Ketchum')
+
+        get "/api/v1/customers/find?last_name=Ketchum"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['attributes']['first_name']).to eql('Ash')
+        expect(customer['attributes']['last_name']).to eql('Ketchum')
     end
 
     it 'can find a customer by their id' do
