@@ -201,7 +201,7 @@ describe 'Merchants' do
 
     end
 
-    it 'can find the top x merchants ranked by total revenue' do
+    it 'can find the top x merchants ranked by total revenue where transactions are successful' do
         merchant_1 = create(:merchant)
         merchant_2 = create(:merchant)
         merchant_3 = create(:merchant)
