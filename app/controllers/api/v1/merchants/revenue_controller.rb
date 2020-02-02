@@ -1,7 +1,7 @@
 class Api::V1::Merchants::RevenueController < ApplicationController
 
     def index
-        render json: MerchantSerializer.new(Merchant.calculate_most_revenue(params[:quantity]))
+        # params is date => "2020-01-31"
     end
 
 end
