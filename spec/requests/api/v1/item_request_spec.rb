@@ -317,4 +317,20 @@ describe 'Items' do
         expect(returned_invoice_items.count).to eql(5)
         expect(ids).to include(returned_invoice_items.first['attributes']['id'])
     end
+
+    it 'can get associated merchant by item id' do
+        merchant_1 = create(:merchant)
+
+        customer = create(:customer)
+
+        items = create_list(:item, 5, merchant_id: merchant_1.id)
+
+        get "/api/v1/items/#{item_1.id}/merchant"
+
+        expect(response).to be_successful
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(merchant['attributes']['data']).to eql(merchant_1.id)
+    end
 end
