@@ -156,7 +156,7 @@ describe 'Invoice Items' do
 
         item_1 = create(:item, merchant_id: merchant.id)
 
-        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, unit_price: 2000)
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, unit_price: 20.00)
 
         get "/api/v1/invoice_items/find?unit_price=#{invoice_item_1.unit_price}"
 
@@ -166,7 +166,7 @@ describe 'Invoice Items' do
 
         expect(item_invoice['attributes']['id']).to eql(invoice_item_1.id)
 
-        expect(item_invoice['attributes']['unit_price']).to eql("20.00")
+        expect(item_invoice['attributes']['unit_price']).to eql(20.0)
     end
 
     it 'can find an item invoice by date created at' do

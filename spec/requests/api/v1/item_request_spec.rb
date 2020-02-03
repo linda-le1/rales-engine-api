@@ -136,8 +136,8 @@ describe 'Items' do
         merchant = create(:merchant)
         merchant_2 = create(:merchant)
 
-        item_1 = create(:item, merchant_id: merchant.id, unit_price: 2567)
-        item_2 = create(:item, merchant_id: merchant_2.id, unit_price: 10000)
+        item_1 = create(:item, merchant_id: merchant.id, unit_price: 25.67)
+        item_2 = create(:item, merchant_id: merchant_2.id, unit_price: 100.00)
 
         get "/api/v1/items/find?unit_price=#{item_1.unit_price}"
 
@@ -145,7 +145,7 @@ describe 'Items' do
 
         item = JSON.parse(response.body)['data']
 
-        expect(item['attributes']['unit_price']).to eql("25.67")
+        expect(item['attributes']['unit_price']).to eql(25.67)
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 
