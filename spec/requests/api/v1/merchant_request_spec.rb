@@ -273,10 +273,10 @@ describe 'Merchants' do
         invoice_item_3 = create(:invoice_item, quantity: 2, invoice_id: invoice_3.id, item_id: item_3.id, unit_price: item_3.unit_price)
 
         get '/api/v1/merchants/revenue?date=2020-01-31'
-        revenue = JSON.parse(response.body)['data']
-        
+        revenue = JSON.parse(response.body)
+
         expect(response).to be_successful
 
-        expect(revenue['attributes']['total_revenue']).to eql ('25.00')
+        expect(revenue['total_revenue']).to eql ('25.00')
     end
 end
