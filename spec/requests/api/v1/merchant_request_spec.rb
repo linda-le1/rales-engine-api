@@ -267,7 +267,6 @@ describe 'Merchants' do
         transaction_1 = create(:transaction, result: 'success', invoice_id: invoice_1.id)
         transaction_2 = create(:transaction, result: 'success', invoice_id: invoice_2.id)
         transaction_3 = create(:transaction, result: 'failed', invoice_id: invoice_3.id)
-        binding.pry
 
         invoice_item_1 = create(:invoice_item, quantity: 1, invoice_id: invoice_1.id, item_id: item_1.id, unit_price: item_1.unit_price)
         invoice_item_2 = create(:invoice_item, quantity: 1, invoice_id: invoice_2.id, item_id: item_2.id, unit_price: item_2.unit_price)
@@ -277,6 +276,6 @@ describe 'Merchants' do
         revenue = JSON.parse(response.body)['data']
         expect(response).to be_successful
 
-        expect(revenue[0]['attributes']['revenue']).to eql ('25.0')
+        expect(revenue[0]['attributes']['revenue']).to eql ('25.00')
     end
 end
