@@ -323,7 +323,7 @@ describe 'Items' do
 
         customer = create(:customer)
 
-        items = create_list(:item, 5, merchant_id: merchant_1.id)
+        item_1 = create(:item, merchant_id: merchant_1.id)
 
         get "/api/v1/items/#{item_1.id}/merchant"
 
@@ -331,6 +331,6 @@ describe 'Items' do
 
         merchant = JSON.parse(response.body)['data']
 
-        expect(merchant['attributes']['data']).to eql(merchant_1.id)
+        expect(merchant['attributes']['id']).to eql(merchant_1.id)
     end
 end
