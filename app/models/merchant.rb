@@ -14,21 +14,13 @@ class Merchant < ApplicationRecord
     end
 
     def self.calculate_revenue_by_date(date)
-        total_by_merchants = select("merchants.id,invoices.created_at as date, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
-        .group("merchants.id, date")
+        select("date_trunc('day', invoices.created_at) as date,
+            sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
+        .group("date")
         .joins(invoices: [:invoice_items, :transactions])
         .merge(Transaction.successful)
         .order("total_revenue desc")
-        .where(invoices: {created_at: (Time.zone.parse(date)..(Time.zone.parse(date)+1.days))})
-
-
-        total_revenue = total_by_merchants.sum do |m|
-            m.total_revenue
-        end
-
-        hash = Hash.new
-        hash[:total_revenue] = '%.2f' % (total_revenue/100)
-        hash
+        .where(invoices: {created_at: (Time.zone.parse(date).all_day)})
     end
 
 end
