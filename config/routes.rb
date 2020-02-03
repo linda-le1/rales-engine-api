@@ -32,10 +32,8 @@ Rails.application.routes.draw do
         get '/:id/transactions', to: 'transactions#index'
         get '/:id/invoice_items', to: 'invoice_items#index'
         get '/:id/items', to: 'items#index'
+        get '/:id/customer', to: 'customer#index'
 
-# GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
-# GET /api/v1/invoices/:id/items returns a collection of associated items
-# GET /api/v1/invoices/:id/customer returns the associated customer
 # GET /api/v1/invoices/:id/merchant returns the associated merchant
       end
 

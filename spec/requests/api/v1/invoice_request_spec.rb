@@ -380,7 +380,7 @@ describe 'Invoices' do
 
         expect(response).to be_successful
 
-        expect(customer.count).to eql(1)
-        expect(customer.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+        expect(customer['id']).to eql("#{customer_1.id}")
+        expect(customer['relationships']['invoices']['data'][0]['id']).to_not be eql(invoice_2.id)
     end
 end

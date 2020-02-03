@@ -189,8 +189,8 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/customers.rb": [
         1,
         1,
-        103,
-        103,
+        105,
+        105,
         null,
         null
       ],
@@ -205,7 +205,7 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/invoices.rb": [
         1,
         1,
-        117,
+        119,
         null,
         null
       ],
@@ -221,7 +221,7 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/merchants.rb": [
         1,
         1,
-        134,
+        135,
         null,
         null
       ],
@@ -267,9 +267,7 @@
         1,
         1,
         1,
-        null,
-        null,
-        null,
+        1,
         null,
         null,
         null,
@@ -1418,6 +1416,25 @@
         1,
         1,
         null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/requests/api/v1/item_request_spec.rb": [
@@ -1963,8 +1980,8 @@
         null,
         1,
         1,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         null,
@@ -2580,6 +2597,23 @@
         1,
         null
       ],
+      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/invoices/customer_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/items_controller.rb": [
         1,
         null,
@@ -2753,6 +2787,6 @@
         null
       ]
     },
-    "timestamp": 1580694768
+    "timestamp": 1580695281
   }
 }
