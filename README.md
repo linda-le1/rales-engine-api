@@ -53,66 +53,65 @@ Then open a browser and enter "localhost:3000".
 
 ### Merchant Endpoints
 
-  `GET` /api/1/merchants
-  `GET` /api/1/merchants/:id
-  `GET` /api/1/merchants/:id/items
-  `GET` /api/1/merchants/:id/invoices
-  `GET` /api/1/merchants/find
-  `GET` /api/1/merchants/find_all
-  `GET` /api/1/merchants/random
-  `GET` /api/1/merchants/most_revenue
-  `GET` /api/1/merchants/revenue
+  `GET` /api/1/merchants<br/>
+  `GET` /api/1/merchants/:id<br/>
+  `GET` /api/1/merchants/:id/items<br/>
+  `GET` /api/1/merchants/:id/invoices<br/>
+  `GET` /api/1/merchants/find<br/>
+  `GET` /api/1/merchants/find_all<br/>
+  `GET` /api/1/merchants/random<br/>
+  `GET` /api/1/merchants/most_revenue<br/>
+  `GET` /api/1/merchants/revenue<br/>
 
   ### Customers Endpoints
 
-  `GET` /api/1/customers
-  `GET` /api/1/customers/:id
-  `GET` /api/1/customers/:id/invoices
-  `GET` /api/1/customers/:id/transactions
-  `GET` /api/1/customers/random
-  `GET` /api/1/customers/find
-  `GET` /api/1/customers/find_all
+  `GET` /api/1/customers<br/>
+  `GET` /api/1/customers/:id<br/>
+  `GET` /api/1/customers/:id/invoices<br/>
+  `GET` /api/1/customers/:id/transactions<br/>
+  `GET` /api/1/customers/random<br/>
+  `GET` /api/1/customers/find<br/>
+  `GET` /api/1/customers/find_all<br/>
 
   ### Items Endpoints
 
-  `GET` /api/1/items
-  `GET` /api/1/items/:id
-  `GET` /api/1/items/:id/invoice_items
-  `GET` /api/1/items/:id/merchant
-  `GET` /api/1/items/random
-  `GET` /api/1/items/find
-  `GET` /api/1/items/find_all
+  `GET` /api/1/items<br/>
+  `GET` /api/1/items/:id<br/>
+  `GET` /api/1/items/:id/invoice_items<br/>
+  `GET` /api/1/items/:id/merchant<br/>
+  `GET` /api/1/items/random<br/>
+  `GET` /api/1/items/find<br/>
+  `GET` /api/1/items/find_all<br/>
 
   ### Invoice Items Endpoints
 
-  `GET` /api/1/invoice_items
-  `GET` /api/1/invoice_items/:id
-  `GET` /api/1/invoice_items/:id/invoice
-  `GET` /api/1/invoice_items/:id/item
-  `GET` /api/1/invoice_items/random
-  `GET` /api/1/invoice_items/find
-  `GET` /api/1/invoice_items/find_all
+  `GET` /api/1/invoice_items<br/>
+  `GET` /api/1/invoice_items/:id<br/>
+  `GET` /api/1/invoice_items/:id/invoice<br/>
+  `GET` /api/1/invoice_items/:id/item<br/>
+  `GET` /api/1/invoice_items/random<br/>
+  `GET` /api/1/invoice_items/find<br/>
+  `GET` /api/1/invoice_items/find_all<br/>
 
   ### Invoices Endpoints
 
-  `GET` /api/1/invoices
-  `GET` /api/1/invoices/:id
-  `GET` /api/1/invoices/:id/transactions
-  `GET` /api/1/invoices/:id/invoice_items
-  `GET` /api/1/invoices/:id/items
-  `GET` /api/1/invoices/:id/customer
-  `GET` /api/1/invoices/:id/merchant
-  `GET` /api/1/invoices/random
-  `GET` /api/1/invoices/find
-  `GET` /api/1/invoices/find_all
+  `GET` /api/1/invoices<br/>
+  `GET` /api/1/invoices/:id<br/>
+  `GET` /api/1/invoices/:id/transactions<br/>
+  `GET` /api/1/invoices/:id/invoice_items<br/>
+  `GET` /api/1/invoices/:id/items<br/>
+  `GET` /api/1/invoices/:id/customer<br/>
+  `GET` /api/1/invoices/:id/merchant<br/>
+  `GET` /api/1/invoices/random<br/>
+  `GET` /api/1/invoices/find<br/>
+  `GET` /api/1/invoices/find_all<br/>
 
   ### Transaction Endpoints
 
-  `GET` /api/1/transactions
-  `GET` /api/1/transactions/:id/invoice
-  `GET` /api/1/transactions/find
-  `GET` /api/1/transactions/random
-  `GET` /api/1/transactions/find_all
+  `GET` /api/1/transactions<br/>
+  `GET` /api/1/transactions/:id/invoice<br/>
+  `GET` /api/1/transactions/find<br/>
+  `GET` /api/1/transactions/random<br/>
+  `GET` /api/1/transactions/find_all<br/>
 
 
- 
