@@ -292,4 +292,29 @@ describe 'Items' do
         expect(items[0]['attributes']['id']).to eql(item_1.id)
         expect(items[1]['attributes']['id']).to eql(item_2.id)
     end
+
+    it 'can get all associated invoice items by item id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        invoice_items = create_list(:invoice_item, 5, item_id: item_1.id, invoice_id: invoice.id)
+
+        ids = invoice_items.map do |iv|
+            iv.id
+        end
+
+        get "/api/v1/items/#{item_1.id}/invoice_items"
+
+        expect(response).to be_successful
+
+        returned_invoice_items = JSON.parse(response.body)['data']
+
+        expect(returned_invoice_items.count).to eql(5)
+        expect(ids).to include(returned_invoice_items.first['attributes']['id'])
+    end
 end
