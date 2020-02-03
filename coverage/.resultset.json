@@ -336,12 +336,6 @@
         1,
         1,
         null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/item_spec.rb": [
@@ -414,6 +408,6 @@
         null
       ]
     },
-    "timestamp": 1580693463
+    "timestamp": 1580693564
   }
 }
