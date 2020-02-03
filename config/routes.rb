@@ -33,8 +33,8 @@ Rails.application.routes.draw do
         get '/:id/invoice_items', to: 'invoice_items#index'
         get '/:id/items', to: 'items#index'
         get '/:id/customer', to: 'customer#index'
+        get '/:id/merchant', to: 'merchant#index'
 
-# GET /api/v1/invoices/:id/merchant returns the associated merchant
       end
 
       namespace :items do
