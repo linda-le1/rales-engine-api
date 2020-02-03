@@ -338,4 +338,30 @@ describe 'Invoices' do
         expect(invoice_items.count).to eql(5)
         expect(invoice_items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
     end
+
+    it 'can find all items belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2= create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        create_list(:invoice_item, 5, invoice_id: invoice.id, item_id: item_1.id)
+        create_list(:invoice_item, 5, invoice_id: invoice.id, item_id: item_2.id)
+        create_list(:invoice_item, 10, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoices/#{invoice.id}/items"
+
+        items = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(items.count).to eql(5)
+        expect(items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+    end
 end
