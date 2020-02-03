@@ -277,6 +277,6 @@ describe 'Merchants' do
 
         expect(response).to be_successful
 
-        expect(revenue['total_revenue']).to eql ('25.00')
+        expect(revenue['data']['attributes']['total_revenue']).to eql ('25.00')
     end
 end

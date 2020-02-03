@@ -397,15 +397,6 @@
         1,
         null,
         null,
-        1,
-        2,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/transaction_spec.rb": [
@@ -2792,6 +2783,15 @@
         null,
         null
       ],
+      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/serializers/merchant_revenue_serializer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/transactions_controller.rb": [
         1,
         null,
@@ -2826,6 +2826,6 @@
         null
       ]
     },
-    "timestamp": 1580700932
+    "timestamp": 1580702093
   }
 }
