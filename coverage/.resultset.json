@@ -189,39 +189,39 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/customers.rb": [
         1,
         1,
-        107,
-        107,
+        108,
+        108,
         null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/invoice_items.rb": [
         1,
         1,
-        84,
-        91,
+        86,
+        93,
         null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/invoices.rb": [
         1,
         1,
-        123,
+        125,
         null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/items.rb": [
         1,
         1,
-        93,
-        93,
-        85,
+        95,
+        95,
+        87,
         null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/merchants.rb": [
         1,
         1,
-        138,
+        139,
         null,
         null
       ],
@@ -254,6 +254,7 @@
         null,
         null,
         null,
+        1,
         1,
         1,
         1,
@@ -321,7 +322,7 @@
         1,
         1,
         null,
-        261,
+        265,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/invoice_spec.rb": [
@@ -345,7 +346,7 @@
         1,
         1,
         null,
-        422,
+        426,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/item_spec.rb": [
@@ -363,7 +364,7 @@
         1,
         1,
         null,
-        270,
+        275,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/merchant_spec.rb": [
@@ -1083,6 +1084,30 @@
         null,
         1,
         null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
         null,
         null
       ],
@@ -2566,6 +2591,32 @@
         1,
         null
       ],
+      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/invoice_items/item_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/serializers/item_serializer.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null
+      ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/invoices_controller.rb": [
         1,
         null,
@@ -2652,15 +2703,6 @@
         1,
         1,
         null,
-        null
-      ],
-      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/serializers/item_serializer.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/invoices/customer_controller.rb": [
@@ -2833,8 +2875,6 @@
         1,
         null,
         1,
-        1,
-        null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/transactions_controller.rb": [
@@ -2871,6 +2911,6 @@
         null
       ]
     },
-    "timestamp": 1580709773
+    "timestamp": 1580711887
   }
 }
