@@ -256,32 +256,27 @@ describe 'Merchants' do
         customer_1 = create(:customer)
         customer_2 = create(:customer)
 
-        item_1 = create(:item, unit_price: 200, merchant_id: merchant_1.id)
-        item_2 = create(:item, unit_price: 100, merchant_id: merchant_2.id)
-        item_3 = create(:item, unit_price: 401, merchant_id: merchant_3.id)
+        item_1 = create(:item, unit_price: 1000, merchant_id: merchant_1.id)
+        item_2 = create(:item, unit_price: 1500, merchant_id: merchant_2.id)
+        item_3 = create(:item, unit_price: 2001, merchant_id: merchant_3.id)
 
         invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
         invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
-        invoice_3 = create(:invoice, merchant_id: merchant_3.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
-        invoice_4 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
-        invoice_5 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_3 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
 
         transaction_1 = create(:transaction, result: 'success', invoice_id: invoice_1.id)
         transaction_2 = create(:transaction, result: 'success', invoice_id: invoice_2.id)
-        transaction_3 = create(:transaction, result: 'success', invoice_id: invoice_3.id)
-        transaction_4 = create(:transaction, result: 'success', invoice_id: invoice_4.id)
-        transaction_5 = create(:transaction, result: 'failed', invoice_id: invoice_5.id)
+        transaction_3 = create(:transaction, result: 'failed', invoice_id: invoice_3.id)
+        binding.pry
 
-        invoice_item_1 = create(:invoice_item, quantity: 2, invoice_id: invoice_1.id, item_id: item_1.id)
-        invoice_item_2 = create(:invoice_item, quantity: 2, invoice_id: invoice_2.id, item_id: item_2.id)
-        invoice_item_3 = create(:invoice_item, quantity: 2, invoice_id: invoice_3.id, item_id: item_3.id)
-        invoice_item_4 = create(:invoice_item, quantity: 2, invoice_id: invoice_4.id, item_id: item_1.id)
-        invoice_item_5 = create(:invoice_item, quantity: 5, invoice_id: invoice_5.id, item_id: item_2.id)
+        invoice_item_1 = create(:invoice_item, quantity: 1, invoice_id: invoice_1.id, item_id: item_1.id, unit_price: item_1.unit_price)
+        invoice_item_2 = create(:invoice_item, quantity: 1, invoice_id: invoice_2.id, item_id: item_2.id, unit_price: item_2.unit_price)
+        invoice_item_3 = create(:invoice_item, quantity: 2, invoice_id: invoice_3.id, item_id: item_3.id, unit_price: item_3.unit_price)
 
         get '/api/v1/merchants/revenue?date=2020-01-31'
         revenue = JSON.parse(response.body)['data']
         expect(response).to be_successful
 
-        expect(revenue[0]['attributes']['revenue']).to eql ('14.01')
+        expect(revenue[0]['attributes']['revenue']).to eql ('25.0')
     end
 end

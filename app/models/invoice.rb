@@ -5,6 +5,7 @@ class Invoice < ApplicationRecord
     has_many :invoice_items, dependent: :destroy
     has_many :items, through: :invoice_items
 
+
     def parse_date(date)
         start = Time.zone.parse(date)
         over = start + 1.days
