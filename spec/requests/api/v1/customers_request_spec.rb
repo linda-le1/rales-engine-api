@@ -198,4 +198,49 @@ describe 'Customers' do
         expect(customers[0]['attributes']['id']).to eql(customer_2.id)
         expect(customers[1]['attributes']['id']).to eql(customer_3.id)
     end
+
+    it 'can find all associated invoices by customer id' do
+
+        customer = create(:customer, id: 888)
+
+        merchant = create(:merchant)
+
+        invoices = create_list(:invoice, 5, customer_id: customer.id, merchant_id: merchant.id)
+
+        get "/api/v1/customers/#{customer.id}/invoices"
+
+        invoices = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoices.count).to eql(5)
+
+        expect(invoices[0]['attributes']['customer_id']).to eql(customer.id)
+    end
+
+    it 'can find all associated transactions by customer id' do
+
+        merchant = create(:merchant)
+        merchant_2 = create(:merchant)
+
+        customer_1 = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer_1.id)
+        invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id)
+        invoice_3 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id)
+
+        transaction_1 = create(:transaction, invoice_id: invoice.id)
+        transaction_2 = create(:transaction, invoice_id: invoice_2.id)
+        transaction_3 = create(:transaction, invoice_id: invoice_3.id)
+
+        get "/api/v1/customers/#{customer_1.id}/transactions"
+
+        transactions = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(transactions.count).to eql(3)
+
+        expect(transactions.first['attributes']['invoice_id']).to eql(invoice.id)
+    end
 end

@@ -43,18 +43,25 @@ desc "Import Merchants"
     puts "Created #{counter} invoices!"
   end
 
-  task :import => [:environment] do
+  task :import=> [:environment] do
     file = "./db/data/items.csv"
 
     counter = 0
 
-    CSV.foreach(file, headers: true) do |row|
-      item_hash = row.to_hash
-      item = Item.create(item_hash)
-      counter += 1 if item.persisted?
-    end
+    items = CSV.foreach(file, headers: true)
+    items.each do |row|
+      Item.create!({
+        id: row['id'],
+        name: row['name'],
+        description: row['description'],
+        unit_price: row['unit_price'].to_f/100,
+        merchant_id: row['merchant_id'],
+        created_at: row['created_at'],
+        updated_at: row['updated_at']
+      })
+      end
 
-    puts "Created #{counter} items!"
+    puts "Created items!"
   end
 
   task :import => [:environment] do
@@ -76,12 +83,20 @@ desc "Import Merchants"
 
     counter = 0
 
-    CSV.foreach(file, headers: true) do |row|
-      invoice_items_hash = row.to_hash
-      invoice_item = InvoiceItem.create(invoice_items_hash)
-      counter += 1 if invoice_item.persisted?
-    end
+    invoice_items = CSV.foreach(file, headers: true)
+    invoice_items.each do |row|
+      InvoiceItem.create!({
+          id: row['id'],
+          item_id: row['item_id'],
+          invoice_id: row['invoice_id'],
+          unit_price: row['unit_price'].to_f/100,
+          quantity: row['quantity'],
+          created_at: row['created_at'],
+          updated_at: row['updated_at'],
+        })
 
-    puts "Created #{counter} invoice_items!"
+      end
+
+    puts "Created invoice_items!"
   end
 

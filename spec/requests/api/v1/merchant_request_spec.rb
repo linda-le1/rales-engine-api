@@ -257,9 +257,9 @@ describe 'Merchants' do
         customer_1 = create(:customer)
         customer_2 = create(:customer)
 
-        item_1 = create(:item, unit_price: 1000, merchant_id: merchant_1.id)
-        item_2 = create(:item, unit_price: 1500, merchant_id: merchant_2.id)
-        item_3 = create(:item, unit_price: 2001, merchant_id: merchant_3.id)
+        item_1 = create(:item, unit_price: 10.00, merchant_id: merchant_1.id)
+        item_2 = create(:item, unit_price: 15.00, merchant_id: merchant_2.id)
+        item_3 = create(:item, unit_price: 20.01, merchant_id: merchant_3.id)
 
         invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
         invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
@@ -278,6 +278,6 @@ describe 'Merchants' do
 
         expect(response).to be_successful
 
-        expect(revenue['data']['attributes']['total_revenue']).to eql ('25.00')
+        expect(revenue['data']['attributes']['total_revenue']).to eql (25.0)
     end
 end

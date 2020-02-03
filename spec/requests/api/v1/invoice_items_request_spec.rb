@@ -156,7 +156,7 @@ describe 'Invoice Items' do
 
         item_1 = create(:item, merchant_id: merchant.id)
 
-        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, unit_price: 2000)
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, unit_price: 20.00)
 
         get "/api/v1/invoice_items/find?unit_price=#{invoice_item_1.unit_price}"
 
@@ -166,7 +166,7 @@ describe 'Invoice Items' do
 
         expect(item_invoice['attributes']['id']).to eql(invoice_item_1.id)
 
-        expect(item_invoice['attributes']['unit_price']).to eql("20.00")
+        expect(item_invoice['attributes']['unit_price']).to eql(20.0)
     end
 
     it 'can find an item invoice by date created at' do
@@ -428,4 +428,53 @@ describe 'Invoice Items' do
         expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_3.id)
     end
 
+    it 'can return the associated invoice' do
+
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoice_items/#{invoice_item_1.id}/invoice"
+
+        invoice_item = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice_item['attributes']['id']).to eql(invoice.id)
+    end
+
+    it 'can return the associated item' do
+
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoice_items/#{invoice_item_1.id}/item"
+
+        invoice_item = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice_item['attributes']['id']).to eql(item_1.id)
+    end
 end

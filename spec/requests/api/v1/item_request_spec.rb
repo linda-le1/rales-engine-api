@@ -136,8 +136,8 @@ describe 'Items' do
         merchant = create(:merchant)
         merchant_2 = create(:merchant)
 
-        item_1 = create(:item, merchant_id: merchant.id, unit_price: 2567)
-        item_2 = create(:item, merchant_id: merchant_2.id, unit_price: 10000)
+        item_1 = create(:item, merchant_id: merchant.id, unit_price: 25.67)
+        item_2 = create(:item, merchant_id: merchant_2.id, unit_price: 100.00)
 
         get "/api/v1/items/find?unit_price=#{item_1.unit_price}"
 
@@ -145,7 +145,7 @@ describe 'Items' do
 
         item = JSON.parse(response.body)['data']
 
-        expect(item['attributes']['unit_price']).to eql("25.67")
+        expect(item['attributes']['unit_price']).to eql(25.67)
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 
@@ -291,5 +291,46 @@ describe 'Items' do
         expect(items.count).to eql(2)
         expect(items[0]['attributes']['id']).to eql(item_1.id)
         expect(items[1]['attributes']['id']).to eql(item_2.id)
+    end
+
+    it 'can get all associated invoice items by item id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        invoice_items = create_list(:invoice_item, 5, item_id: item_1.id, invoice_id: invoice.id)
+
+        ids = invoice_items.map do |iv|
+            iv.id
+        end
+
+        get "/api/v1/items/#{item_1.id}/invoice_items"
+
+        expect(response).to be_successful
+
+        returned_invoice_items = JSON.parse(response.body)['data']
+
+        expect(returned_invoice_items.count).to eql(5)
+        expect(ids).to include(returned_invoice_items.first['attributes']['id'])
+    end
+
+    it 'can get associated merchant by item id' do
+        merchant_1 = create(:merchant)
+
+        customer = create(:customer)
+
+        item_1 = create(:item, merchant_id: merchant_1.id)
+
+        get "/api/v1/items/#{item_1.id}/merchant"
+
+        expect(response).to be_successful
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(merchant['attributes']['id']).to eql(merchant_1.id)
     end
 end
