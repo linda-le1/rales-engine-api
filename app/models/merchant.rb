@@ -5,7 +5,8 @@ class Merchant < ApplicationRecord
     has_many :invoice_items, through: :invoices
 
     def self.calculate_most_revenue(quantity)
-        select("merchants.*, sum(unit_price*quantity) as revenue")
+        unscoped
+        .select("merchants.*, sum(unit_price*quantity) as revenue")
         .group(:id)
         .joins(invoices: [:invoice_items, :transactions])
         .merge(Transaction.successful)
@@ -14,7 +15,8 @@ class Merchant < ApplicationRecord
     end
 
     def self.calculate_revenue_by_date(date)
-        select("date_trunc('day', invoices.created_at) as date,
+        unscoped
+        .select("date_trunc('day', invoices.created_at) as date,
             sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
         .group("date")
         .joins(invoices: [:invoice_items, :transactions])
