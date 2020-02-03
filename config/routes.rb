@@ -29,6 +29,12 @@ Rails.application.routes.draw do
         get '/find', to: 'find#index'
         get '/random', to: 'random#index'
         get '/find_all', to: 'find#show'
+        get '/:id/transactions',to: 'transactions#index'
+
+# GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
+# GET /api/v1/invoices/:id/items returns a collection of associated items
+# GET /api/v1/invoices/:id/customer returns the associated customer
+# GET /api/v1/invoices/:id/merchant returns the associated merchant
       end
 
       namespace :items do

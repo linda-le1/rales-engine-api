@@ -292,4 +292,25 @@ describe 'Invoices' do
         expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
         expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
     end
+
+    it 'can find all transactions for an invoice' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        create_list(:transaction, 5, invoice_id: invoice.id)
+
+        get "/api/v1/invoices/#{invoice.id}/transactions"
+
+        transactions = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(transactions.count).to eql(5)
+        expect(transactions.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+
+    end
 end
