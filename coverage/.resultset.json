@@ -189,8 +189,8 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/customers.rb": [
         1,
         1,
-        110,
-        110,
+        111,
+        111,
         null,
         null
       ],
@@ -205,7 +205,7 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/invoices.rb": [
         1,
         1,
-        126,
+        127,
         null,
         null
       ],
@@ -221,7 +221,7 @@
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/factories/merchants.rb": [
         1,
         1,
-        141,
+        142,
         null,
         null
       ],
@@ -286,6 +286,7 @@
         1,
         1,
         1,
+        1,
         null,
         null,
         1,
@@ -324,7 +325,7 @@
         1,
         1,
         null,
-        273,
+        275,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/invoice_spec.rb": [
@@ -348,7 +349,7 @@
         1,
         1,
         null,
-        435,
+        438,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/item_spec.rb": [
@@ -366,7 +367,7 @@
         1,
         1,
         null,
-        285,
+        286,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/merchant_spec.rb": [
@@ -2517,6 +2518,24 @@
         1,
         null,
         null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/application_controller.rb": [
@@ -2985,8 +3004,25 @@
         1,
         null,
         null
+      ],
+      "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/app/controllers/api/v1/transactions/invoice_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
       ]
     },
-    "timestamp": 1580712566
+    "timestamp": 1580713211
   }
 }
