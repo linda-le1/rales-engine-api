@@ -7,7 +7,8 @@ class Merchant < ApplicationRecord
     default_scope { order(:id) }
 
     def self.calculate_most_revenue(quantity)
-        select("merchants.*, sum(unit_price*quantity) as revenue")
+        unscoped
+        .select("merchants.*, sum(unit_price*quantity) as revenue")
         .group(:id)
         .joins(invoices: [:invoice_items, :transactions])
         .merge(Transaction.successful)
