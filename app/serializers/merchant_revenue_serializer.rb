@@ -1,7 +1,7 @@
 class MerchantRevenueSerializer
     include FastJsonapi::ObjectSerializer
 
-    attributes :revenue do |x|
-        '%.2f' % (x.revenue / 100)
+    attributes :total_revenue do |x|
+        '%.2f' % (x.total_revenue / 100)
     end
 end
