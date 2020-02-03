@@ -371,4 +371,22 @@ describe 'Transactions' do
         expect(transactions[1]['attributes']['id']).to eql(transaction_2.id)
     end
 
+    it 'can find associated invoice by transaction id' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        transaction_1 = create(:transaction, credit_card_number: '1111', invoice_id: invoice.id)
+
+        get "/api/v1/transactions/#{transaction_1.invoice_id}/invoice"
+
+        invoice = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice['attributes']['id']).to eql(transaction_1.id)
+    end
+
 end
