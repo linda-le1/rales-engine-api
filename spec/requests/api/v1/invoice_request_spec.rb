@@ -361,7 +361,7 @@ describe 'Invoices' do
 
         expect(response).to be_successful
 
-        expect(items.count).to eql(5)
+        expect(items.count).to eql(10)
         expect(items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
     end
 end
