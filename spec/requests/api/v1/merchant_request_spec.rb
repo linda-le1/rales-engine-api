@@ -237,11 +237,12 @@ describe 'Merchants' do
 
         get '/api/v1/merchants/most_revenue?quantity=3'
 
+
         top_merchants = JSON.parse(response.body)['data']
 
         expect(response).to be_successful
 
-        expect(top_merchants.count). to eql(3)
+        expect(top_merchants.count).to eql(3)
         expect(top_merchants[0]["attributes"]["id"]).to eq(merchant_1.id)
         expect(top_merchants[1]["attributes"]["id"]).to eq(merchant_2.id)
         expect(top_merchants[2]["attributes"]["id"]).to eq(merchant_3.id)

@@ -145,7 +145,7 @@ describe 'Items' do
 
         item = JSON.parse(response.body)['data']
 
-        expect(item['attributes']['unit_price']).to eql("25.67")
+        expect(item['attributes']['unit_price']).to eql(25.67)
         expect(item['attributes']['id']).to eql(item_1.id)
     end
 

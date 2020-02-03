@@ -342,6 +342,7 @@
         1,
         1,
         null,
+        417,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/item_spec.rb": [
@@ -358,6 +359,8 @@
         1,
         1,
         1,
+        null,
+        265,
         null
       ],
       "/Users/lindale/turing/mod3/projects/rales_engine/rales_engine_api/spec/models/merchant_spec.rb": [
@@ -1996,6 +1999,7 @@
         null,
         1,
         null,
+        null,
         1,
         null,
         1,
@@ -2768,6 +2772,7 @@
         null,
         1,
         1,
+        1,
         null,
         null,
         null,
@@ -2827,6 +2832,6 @@
         null
       ]
     },
-    "timestamp": 1580703620
+    "timestamp": 1580705231
   }
 }
