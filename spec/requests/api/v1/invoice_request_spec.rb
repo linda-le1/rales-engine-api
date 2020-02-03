@@ -364,4 +364,23 @@ describe 'Invoices' do
         expect(items.count).to eql(10)
         expect(items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
     end
+
+    it 'can find the associate customer belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer_1 = create(:customer)
+        customer_2 = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer_1.id)
+        invoice_2= create(:invoice, merchant_id: merchant.id, customer_id: customer_2.id)
+
+        get "/api/v1/invoices/#{invoice.id}/customer"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer.count).to eql(1)
+        expect(customer.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+    end
 end
