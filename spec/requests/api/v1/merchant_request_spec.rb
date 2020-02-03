@@ -260,9 +260,9 @@ describe 'Merchants' do
         item_2 = create(:item, unit_price: 1500, merchant_id: merchant_2.id)
         item_3 = create(:item, unit_price: 2001, merchant_id: merchant_3.id)
 
-        invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
-        invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, updated_at: "2020-01-31 10:20:30 UTC")
-        invoice_3 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, updated_at: "2020-01-31 10:20:30 UTC")
+        invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
+        invoice_2 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id, created_at: "2020-01-31 10:20:30 UTC")
+        invoice_3 = create(:invoice, merchant_id: merchant_2.id, customer_id: customer_2.id, created_at: "2020-01-31 10:20:30 UTC")
 
         transaction_1 = create(:transaction, result: 'success', invoice_id: invoice_1.id)
         transaction_2 = create(:transaction, result: 'success', invoice_id: invoice_2.id)
@@ -274,8 +274,9 @@ describe 'Merchants' do
 
         get '/api/v1/merchants/revenue?date=2020-01-31'
         revenue = JSON.parse(response.body)['data']
+        
         expect(response).to be_successful
 
-        expect(revenue[0]['attributes']['revenue']).to eql ('25.00')
+        expect(revenue['attributes']['total_revenue']).to eql ('25.00')
     end
 end

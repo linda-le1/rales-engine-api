@@ -292,4 +292,114 @@ describe 'Invoices' do
         expect(invoices[0]['attributes']['id']).to eql(invoice_1.id)
         expect(invoices[1]['attributes']['id']).to eql(invoice_2.id)
     end
+
+    it 'can find all transactions belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        create_list(:transaction, 5, invoice_id: invoice.id)
+
+        get "/api/v1/invoices/#{invoice.id}/transactions"
+
+        transactions = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(transactions.count).to eql(5)
+        expect(transactions.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+
+    end
+
+    it 'can find all invoice items belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2= create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        create_list(:invoice_item, 5, invoice_id: invoice.id, item_id: item_1.id)
+        create_list(:invoice_item, 10, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoices/#{invoice.id}/invoice_items"
+
+        invoice_items = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice_items.count).to eql(5)
+        expect(invoice_items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+    end
+
+    it 'can find all items belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2= create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        create_list(:invoice_item, 5, invoice_id: invoice.id, item_id: item_1.id)
+        create_list(:invoice_item, 5, invoice_id: invoice.id, item_id: item_2.id)
+        create_list(:invoice_item, 10, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoices/#{invoice.id}/items"
+
+        items = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(items.count).to eql(10)
+        expect(items.last['attributes']['invoice_id']).to_not be eql(invoice_2.id)
+    end
+
+    it 'can find the associate customer belonging to an invoice' do
+        merchant = create(:merchant)
+
+        customer_1 = create(:customer)
+        customer_2 = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer_1.id)
+        invoice_2= create(:invoice, merchant_id: merchant.id, customer_id: customer_2.id)
+
+        get "/api/v1/invoices/#{invoice.id}/customer"
+
+        customer = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(customer['id']).to eql("#{customer_1.id}")
+        expect(customer['relationships']['invoices']['data'][0]['id']).to_not be eql(invoice_2.id)
+    end
+
+    it 'can find the associate merchant belonging to an invoice' do
+        merchant_1 = create(:merchant)
+        merchant_2 = create(:merchant)
+
+        customer_1 = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant_1.id, customer_id: customer_1.id)
+        invoice_2= create(:invoice, merchant_id: merchant_2.id, customer_id: customer_1.id)
+
+        get "/api/v1/invoices/#{invoice.id}/merchant"
+
+        merchant = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(merchant['id']).to eql("#{merchant_1.id}")
+        expect(merchant['relationships']['invoices']['data'][0]['id']).to_not be eql(invoice_2.id)
+    end
 end
