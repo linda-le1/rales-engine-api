@@ -428,4 +428,29 @@ describe 'Invoice Items' do
         expect(invoice_items[1]['attributes']['id']).to eql(invoice_item_3.id)
     end
 
+    it 'can return the associated invoice' do
+
+        merchant = create(:merchant)
+
+        customer = create(:customer)
+
+        invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+        invoice_2 = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+
+        invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id)
+        invoice_item_2 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_2.id)
+
+
+        get "/api/v1/invoice_items/#{invoice_item_1.id}/invoice"
+
+        invoice_item = JSON.parse(response.body)['data']
+
+        expect(response).to be_successful
+
+        expect(invoice_item['attributes']['id']).to eql(invoice.id)
+    end
+
 end
