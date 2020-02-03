@@ -280,8 +280,8 @@ describe 'Merchants' do
 
         get '/api/v1/merchants/revenue?date=2020-01-31'
         revenue = JSON.parse(response.body)['data']
-        binding.pry
         expect(response).to be_successful
-        expect(revenue['attributes']).to eql ('202.02')
+
+        expect(revenue[0]['attributes']['revenue']).to eql ('202.02')
     end
 end
