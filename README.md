@@ -2,6 +2,8 @@
 
 This is a solo project for Mod 3 students. The complete set of directions can be found at https://backend.turing.io/module3/projects/rails_engine_modified.
 
+![](images/rales_engine_schema.png) 
+
 ## Instructions
 
 First, clone the directory to a local repository:
@@ -37,8 +39,8 @@ Then run rspec to ensure all of the tests are passing.
 
 ## Gems Used
 
-RSPEC gem was used for testing: https://github.com/rspec/rspec.
-Shoulda-Matchers were used in addition to the RSPEC testing suite: https://github.com/thoughtbot/shoulda-matchers.
+RSPEC gem was used for testing: https://github.com/rspec/rspec.</br>
+Shoulda-Matchers were used in addition to the RSPEC testing suite: https://github.com/thoughtbot/shoulda-matchers.</br>
 Netflix's fast JSON API gem was used to serialize the information: https://github.com/Netflix/fast_jsonapi.
 
 ## Access Endpoints
